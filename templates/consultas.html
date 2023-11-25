@@ -1,18 +1,18 @@
 {% extends 'template.html' %}
 {% block content %}
-    <a href="{{ url_for('form') }}" class="btn btn-primary btn-salvar">Otimizar agora</a>
-    <a href="{{ url_for('deletar_todas_as_consultas') }}" class="btn btn-secondary btn-salvar">Deletar todas as
+    <a href="{{ url_for('form') }}" class="button-primary">Otimizar agora</a>
+    <a href="{{ url_for('deletar_todas_as_consultas') }}" class="button-secondary">Deletar todas as
         consultas</a>
-    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-salvar">Voltar ao início</a>
+    <a href="{{ url_for('index') }}" class="button-secondary">Voltar ao início</a>
     <br><br>
     <table class="table table-striped table-responsive table-bordered">
         <thead class="thead-default">
         <tr>
-            <th>quantidade_dias</th>
-            <th>quantidade_ouro</th>
-            <th>estação</th>
-            <th>lucro_máximo</th>
-            <th>data_hora</th>
+            <th>Quantidade<br>de dias</th>
+            <th>Quantidade<br>de ouro</th>
+            <th>Estação</th>
+            <th>Lucro máximo</th>
+            <th>Data e hora</th>
         </tr>
         </thead>
         <tbody>

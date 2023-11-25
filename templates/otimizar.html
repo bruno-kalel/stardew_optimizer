@@ -1,22 +1,29 @@
 {% extends 'template.html' %}
 {% block content %}
-    <p>Lucro máximo: {{ lucro_máximo }}</p>
-    <p>{{ quantidade_dias }} dias restantes</p>
-    <p>{{ quantidade_ouro }} disponível em ouro</p>
-    <p>{{ estação.title() }}</p>
-    <a href="{{ url_for('form') }}" class="btn btn-secondary btn-salvar">Otimizar novamente</a>
-    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-salvar">Voltar ao início</a>
-    <br><br>
+    <table class="table table-striped table-responsive table-bordered">
+        <tr>
+            <td>Lucro máximo</td>
+            <td>Quantidade de dias</td>
+            <td>Quantidade de ouro</td>
+            <td>Estação</td>
+        </tr>
+        <tr>
+            <td>{{ lucro_máximo }}</td>
+            <td>{{ quantidade_dias }}</td>
+            <td>{{ quantidade_ouro }}</td>
+            <td>{{ estação.title() }}</td>
+        </tr>
+    </table>
     <table class="table table-striped table-responsive table-bordered">
         <thead class="thead-default">
         <tr>
             <th>Imagem</th>
             <th>Nome</th>
-            <th>Preço_Compra</th>
-            <th>Local_Compra</th>
-            <th>Preço_Venda_Comum</th>
-            <th>Dias_Para_Amadurecer</th>
-            <th>Quantidade_Comprar</th>
+            <th>Preço de<br>compra</th>
+            <th>Local de<br>compra</th>
+            <th>Preço<br>venda<br>comum</th>
+            <th>Dias para<br>amadurecer</th>
+            <th>Quantidade<br>para comprar</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +45,8 @@
             {% endif %}
         {% endfor %}
         </tbody>
-
     </table>
+    <br>
+    <a href="{{ url_for('form') }}" class="button-primary">Otimizar novamente</a>
+    <a href="{{ url_for('index') }}" class="button-secondary">Voltar ao início</a>
 {% endblock %}

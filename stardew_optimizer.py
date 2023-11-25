@@ -42,7 +42,7 @@ class Consultas(db.Model):
 def index():
   frutas = Stardew.query.order_by(Stardew.id)
   return render_template('index.html',
-                         title='todas as lavouras',
+                         title='Todas as lavouras',
                          frutas=frutas)
 
 
@@ -53,7 +53,8 @@ def static_images(filename):
 
 @app.route('/form')
 def form():
-  return render_template('form.html')
+  return render_template('form.html',
+                         title='Otimizar agora')
 
 
 @app.route('/otimizar', methods=['POST', ])
@@ -109,13 +110,14 @@ def otimizar():
     else:
       db.session.add(Consultas(quantidade_dias=quantidade_dias,
                                quantidade_ouro=quantidade_ouro,
-                               estação=estação, lucro_máximo=lucro_máximo,
+                               estação=estação.title(),
+                               lucro_máximo=lucro_máximo,
                                data_hora=datetime.now()))
       db.session.commit()
       flash('Otimização adicionada às suas consultas.')
     
     return render_template('otimizar.html',
-                           title='stardew_optimizer',
+                           title='Resultados',
                            lucro_máximo=lucro_máximo,
                            quantidade_dias=quantidade_dias,
                            quantidade_ouro=quantidade_ouro,
@@ -128,7 +130,7 @@ def otimizar():
 def consultas():
   lista_consultas = Consultas.query.order_by(desc(Consultas.data_hora)).all()
   return render_template('consultas.html',
-                         title='todas as consultas',
+                         title='Suas consultas',
                          consultas=lista_consultas)
 
 

@@ -8,12 +8,12 @@
 </head>
 <body>
 <br>
-<div class="container">
+<div>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul id="messages" class="list-unstyled">
+            <ul id="messages">
                 {% for message in messages %}
-                    <li class="alert alert-success">{{ message }}</li>
+                    <li class="alert">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
