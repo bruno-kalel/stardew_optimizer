@@ -8,7 +8,7 @@
             <td>Estação</td>
         </tr>
         <tr>
-            <td>{{ lucro_máximo }}</td>
+            <td>{{ lucro_máximo | round | int }}</td>
             <td>{{ quantidade_dias }}</td>
             <td>{{ quantidade_ouro }}</td>
             <td>{{ estação.title() }}</td>
