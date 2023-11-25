@@ -72,7 +72,7 @@ def otimizar():
     variáveis_iniciais[fruto.nome_fruto] = solver.IntVar(0,
                                                          infinity,
                                                          fruto.nome_fruto)
-    solver.Add(fruto.dias_para_amadurecer * variáveis_iniciais[fruto.nome_fruto] <= quantidade_dias)
+    solver.Add(fruto.dias_para_amadurecer <= quantidade_dias)
   
   quantidade_ouro_gasto = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
                                        for fruto
@@ -148,11 +148,6 @@ def deletar_todas_as_consultas():
   db.session.commit()
   flash('Todas as consultas foram deletadas.')
   return redirect(url_for('consultas'))
-
-
-@app.route('/visualizar_consulta/<int:quantidade_dias>/<int:quantidade_ouro>/<estação>/')
-def visualizar_consulta(quantidade_dias, quantidade_ouro, estação):
-  pass
 
 
 if __name__ == '__main__':

@@ -24,12 +24,6 @@
                 <td>{{ consulta.lucro_máximo }}</td>
                 <td>{{ consulta.data_hora }}</td>
                 <td>
-                    <a href="{{ url_for('visualizar_consulta',
-                            quantidade_dias=consulta.quantidade_dias,
-                            quantidade_ouro=consulta.quantidade_ouro,
-                            estação=consulta.estação) }}">Visualizar</a>
-                </td>
-                <td>
                     <a href="{{ url_for('deletar_uma_consulta',
                     identificador=consulta.id) }}" style="color: red">Deletar</a>
                 </td>

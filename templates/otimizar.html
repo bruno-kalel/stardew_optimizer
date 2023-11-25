@@ -21,20 +21,23 @@
         </thead>
         <tbody>
         {% for fruta in frutas %}
-            <tr>
-                <td>
-                    <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
-                         alt=""
-                         style="width: 50%">
-                </td>
-                <td>{{ fruta.nome_fruto }}</td>
-                <td>{{ fruta.preço_compra }}</td>
-                <td>{{ fruta.local_compra }}</td>
-                <td>{{ fruta.preço_venda_comum }}</td>
-                <td>{{ fruta.dias_para_amadurecer }}</td>
-                <td>{{ variáveis_finais[fruta.nome_fruto] }}</td>
-            </tr>
+            {% if variáveis_finais[fruta.nome_fruto] != 0 %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
+                             alt=""
+                             style="width: 50%">
+                    </td>
+                    <td>{{ fruta.nome_fruto }}</td>
+                    <td>{{ fruta.preço_compra }}</td>
+                    <td>{{ fruta.local_compra }}</td>
+                    <td>{{ fruta.preço_venda_comum }}</td>
+                    <td>{{ fruta.dias_para_amadurecer }}</td>
+                    <td>{{ variáveis_finais[fruta.nome_fruto] }}</td>
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
+
     </table>
 {% endblock %}
