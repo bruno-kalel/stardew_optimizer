@@ -55,8 +55,8 @@ def otimizar():
 
 @app.route('/otimizar2', methods=['POST', ])
 def otimizar2():
-  quantidade_dias = request.form['quantidade_dias']
-  quantidade_ouro = request.form['quantidade_ouro']
+  quantidade_dias = int(request.form['quantidade_dias'])
+  quantidade_ouro = int(request.form['quantidade_ouro'])
   estação = request.form['estação']
   lista_de_frutos_da_estação = Stardew.query.filter(getattr(Stardew, estação)).all()
   
@@ -67,21 +67,24 @@ def otimizar2():
   for fruto in lista_de_frutos_da_estação:
     variáveis_iniciais[fruto.nome_fruto] = solver.IntVar(0,
                                                          infinity,
-                                                         f'quantidade_sementes{fruto.nome_fruto}')
+                                                         fruto.nome_fruto)
     solver.Add(fruto.dias_para_amadurecer * variáveis_iniciais[fruto.nome_fruto] <= quantidade_dias)
   
-  soma_custo_ouro = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
-                                 for fruto
-                                 in lista_de_frutos_da_estação]))
+  quantidade_ouro_gasto = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
+                                       for fruto
+                                       in lista_de_frutos_da_estação]))
   
-  solver.Add(soma_custo_ouro <= quantidade_ouro)
+  solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
   
-  objective_terms = solver.Sum([fruto.preço_venda_comum * variáveis_iniciais[fruto.nome_fruto]
-                                for fruto
-                                in lista_de_frutos_da_estação]) - solver.Sum(
-    fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
-    for fruto
-    in lista_de_frutos_da_estação)
+  valor_venda_semente = solver.Sum([fruto.preço_venda_comum * variáveis_iniciais[fruto.nome_fruto]
+                                    for fruto
+                                    in lista_de_frutos_da_estação])
+  
+  valor_compra_semente = solver.Sum([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
+                                     for fruto
+                                     in lista_de_frutos_da_estação])
+  
+  objective_terms = [valor_venda_semente - valor_compra_semente]
   solver.Maximize(solver.Sum(objective_terms))
   status = solver.Solve()
   
@@ -92,7 +95,7 @@ def otimizar2():
     for fruto in lista_de_frutos_da_estação:
       variáveis_finais[fruto.nome_fruto] = int(variáveis_iniciais[fruto.fruto.nome_fruto].solution_value())
       
-    return render_template('resultado.html', lucro_máximo=lucro_máximo, variáveis_finais=variáveis_finais)
+    return render_template('otimizar.html', lucro_máximo=lucro_máximo, variáveis_finais=variáveis_finais)
 
 
 if __name__ == '__main__':
