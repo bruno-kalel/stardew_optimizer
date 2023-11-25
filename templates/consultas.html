@@ -1,0 +1,40 @@
+{% extends 'template.html' %}
+{% block content %}
+    <a href="{{ url_for('form') }}" class="btn btn-primary btn-salvar">Otimizar agora</a>
+    <a href="{{ url_for('deletar_todas_as_consultas') }}" class="btn btn-secondary btn-salvar">Deletar todas as
+        consultas</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-salvar">Voltar ao início</a>
+    <br><br>
+    <table class="table table-striped table-responsive table-bordered">
+        <thead class="thead-default">
+        <tr>
+            <th>quantidade_dias</th>
+            <th>quantidade_ouro</th>
+            <th>estação</th>
+            <th>lucro_máximo</th>
+            <th>data_hora</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.quantidade_dias }}</td>
+                <td>{{ consulta.quantidade_ouro }}</td>
+                <td>{{ consulta.estação }}</td>
+                <td>{{ consulta.lucro_máximo }}</td>
+                <td>{{ consulta.data_hora }}</td>
+                <td>
+                    <a href="{{ url_for('visualizar_consulta',
+                            quantidade_dias=consulta.quantidade_dias,
+                            quantidade_ouro=consulta.quantidade_ouro,
+                            estação=consulta.estação) }}">Visualizar</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('deletar_uma_consulta',
+                    identificador=consulta.id) }}" style="color: red">Deletar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

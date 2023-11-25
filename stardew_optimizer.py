@@ -2,9 +2,11 @@
 # psycopg2 não é declarado explicitamente, mas precisa ser instalado
 # lembrar de fazer os flashes pro usuário
 
-from flask import Flask, render_template, send_from_directory, request, flash
+from flask import Flask, render_template, send_from_directory, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from ortools.linear_solver import pywraplp
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -27,12 +29,20 @@ class Stardew(db.Model):
   dias_até_colher_novamente = db.Column(db.Integer)
 
 
+class Consultas(db.Model):
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  quantidade_dias = db.Column(db.Integer)
+  quantidade_ouro = db.Column(db.Integer)
+  estação = db.Column(db.String(10))
+  lucro_máximo = db.Column(db.Numeric)
+  data_hora = db.Column(db.DateTime)
+
+
 @app.route('/')
 def index():
   frutas = Stardew.query.order_by(Stardew.id)
-  flash('WELCOME, STRANGER!')
   return render_template('index.html',
-                         title='stardew_optimizer',
+                         title='todas as lavouras',
                          frutas=frutas)
 
 
@@ -48,7 +58,7 @@ def form():
 
 @app.route('/otimizar', methods=['POST', ])
 def otimizar():
-  flash('OTIMIZADO COM SUCESSO!')
+  flash('Otimizado com sucesso!')
   quantidade_dias = int(request.form['quantidade_dias'])
   quantidade_ouro = int(request.form['quantidade_ouro'])
   estação = request.form['estação']
@@ -89,6 +99,21 @@ def otimizar():
     for fruto in lista_de_frutos_da_estação:
       variáveis_finais[fruto.nome_fruto] = int(variáveis_iniciais[fruto.nome_fruto].solution_value())
     
+    # consulta já foi realizada anteriormente? não criar novamente no banco
+    if Consultas.query.filter_by(quantidade_dias=quantidade_dias,
+                                 quantidade_ouro=quantidade_ouro,
+                                 estação=estação).first():
+      flash('Otimização realizada anteriormente. Não será cadastrada no banco de dados.')
+    
+    # criar consulta nova no banco
+    else:
+      db.session.add(Consultas(quantidade_dias=quantidade_dias,
+                               quantidade_ouro=quantidade_ouro,
+                               estação=estação, lucro_máximo=lucro_máximo,
+                               data_hora=datetime.now()))
+      db.session.commit()
+      flash('Otimização adicionada às suas consultas.')
+    
     return render_template('otimizar.html',
                            title='stardew_optimizer',
                            lucro_máximo=lucro_máximo,
@@ -97,6 +122,37 @@ def otimizar():
                            estação=estação,
                            frutas=lista_de_frutos_da_estação,
                            variáveis_finais=variáveis_finais)
+
+
+@app.route('/consultas')
+def consultas():
+  lista_consultas = Consultas.query.order_by(desc(Consultas.data_hora)).all()
+  return render_template('consultas.html',
+                         title='todas as consultas',
+                         consultas=lista_consultas)
+
+
+# deletar uma única consulta
+@app.route('/deletar_uma_consulta/<int:identificador>')
+def deletar_uma_consulta(identificador):
+  Consultas.query.filter_by(id=identificador).delete()
+  db.session.commit()
+  flash('A consulta selecionada foi deletada.')
+  return redirect(url_for('consultas'))
+
+
+# deletar todas as consultas
+@app.route('/deletar_todas_as_consultas')
+def deletar_todas_as_consultas():
+  db.session.query(Consultas).delete()
+  db.session.commit()
+  flash('Todas as consultas foram deletadas.')
+  return redirect(url_for('consultas'))
+
+
+@app.route('/visualizar_consulta/<int:quantidade_dias>/<int:quantidade_ouro>/<estação>/')
+def visualizar_consulta(quantidade_dias, quantidade_ouro, estação):
+  pass
 
 
 if __name__ == '__main__':
