@@ -111,7 +111,7 @@ def otimizar():
       db.session.add(Consultas(quantidade_dias=quantidade_dias,
                                quantidade_ouro=quantidade_ouro,
                                estação=estação.title(),
-                               lucro_máximo=lucro_máximo,
+                               lucro_máximo=int(round(lucro_máximo)),
                                data_hora=datetime.now()))
       db.session.commit()
       flash('Otimização adicionada às suas consultas.')
