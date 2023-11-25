@@ -1,7 +1,8 @@
 # pip install Flask Flask-SQLAlchemy psycopg2 ortools
-# psycopg2 não é declarado explicitamente mas precisa ser instalado
+# psycopg2 não é declarado explicitamente, mas precisa ser instalado
+# lembrar de fazer os flashes pro usuário
 
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from ortools.linear_solver import pywraplp
 
@@ -29,7 +30,7 @@ class Stardew(db.Model):
 @app.route('/')
 def index():
   frutas = Stardew.query.order_by(Stardew.id)
-  
+  flash('WELCOME, STRANGER!')
   return render_template('index.html',
                          title='stardew_optimizer',
                          frutas=frutas)
@@ -47,14 +48,7 @@ def form():
 
 @app.route('/otimizar', methods=['POST', ])
 def otimizar():
-  estação = request.form['estação']
-  frutas = Stardew.query.filter(getattr(Stardew, estação)).all()
-  
-  return render_template('otimizar.html', frutas=frutas)
-
-
-@app.route('/otimizar2', methods=['POST', ])
-def otimizar2():
+  flash('OTIMIZADO COM SUCESSO!')
   quantidade_dias = int(request.form['quantidade_dias'])
   quantidade_ouro = int(request.form['quantidade_ouro'])
   estação = request.form['estação']
@@ -93,9 +87,16 @@ def otimizar2():
     variáveis_finais = dict()
     
     for fruto in lista_de_frutos_da_estação:
-      variáveis_finais[fruto.nome_fruto] = int(variáveis_iniciais[fruto.fruto.nome_fruto].solution_value())
-      
-    return render_template('otimizar.html', lucro_máximo=lucro_máximo, variáveis_finais=variáveis_finais)
+      variáveis_finais[fruto.nome_fruto] = int(variáveis_iniciais[fruto.nome_fruto].solution_value())
+    
+    return render_template('otimizar.html',
+                           title='stardew_optimizer',
+                           lucro_máximo=lucro_máximo,
+                           quantidade_dias=quantidade_dias,
+                           quantidade_ouro=quantidade_ouro,
+                           estação=estação,
+                           frutas=lista_de_frutos_da_estação,
+                           variáveis_finais=variáveis_finais)
 
 
 if __name__ == '__main__':

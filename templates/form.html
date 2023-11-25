@@ -1,34 +1,38 @@
 {% extends 'template.html' %}
 {% block content %}
-<form action="{{ url_for('otimizar') }}" method="post">
-    <fieldset>
-        <div class="form-group">
-            <label for="quantidade_dias">Sua quantidade de dias restantes</label>
-            <input
-                    type="number"
-                    id="quantidade_dias"
-                    name="quantidade_dias"
-                    class="form-control"
-                    min="0">
-        </div>
-        <div class="form-group">
-            <label for="quantidade_ouro">Sua quantidade de ouro disponível</label>
-            <input type="number"
-                   id="quantidade_ouro"
-                   name="quantidade_ouro"
-                   class="form-control"
-                   min="0">
-        </div>
-        <div class="form-group">
-            <label for="estação">Escolha a estação</label>
-            <select id="estação" name="estação" class="form-control">
-                <option value="inverno">Inverno</option>
-                <option value="outono">Outono</option>
-                <option value="primavera">Primavera</option>
-                <option value="verão">Verão</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary btn-salvar">Otimizar</button>
-    </fieldset>
-</form>
+    <form action="{{ url_for('otimizar') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <label for="quantidade_dias">Dias restantes:</label>
+                <input
+                        type="number"
+                        id="quantidade_dias"
+                        name="quantidade_dias"
+                        class="form-control"
+                        min="0"
+                        max="28">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="quantidade_ouro">Ouro disponível:</label>
+                <input type="number"
+                       id="quantidade_ouro"
+                       name="quantidade_ouro"
+                       class="form-control"
+                       min="0">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="estação">Estação:</label>
+                <select id="estação" name="estação" class="form-control">
+                    <option value="outono">Outono</option>
+                    <option value="primavera">Primavera</option>
+                    <option value="verão">Verão</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary btn-salvar">Otimizar</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary btn-salvar">Voltar ao início</a>
+        </fieldset>
+    </form>
 {% endblock %}

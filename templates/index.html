@@ -1,43 +1,75 @@
 {% extends 'template.html' %}
 {% block content %}
-<table class="table table-striped table-responsive table-bordered">
-    <thead class="thead-default">
-    <tr>
-        <th>Imagem</th>
-        <th>Nome</th>
-        <th>Inverno</th>
-        <th>Outono</th>
-        <th>Primavera</th>
-        <th>Verão</th>
-        <th>Preço_Compra</th>
-        <th>Local_Compra</th>
-        <th>Preço_Venda_Comum</th>
-        <th>Preço_Venda_Incomum</th>
-        <th>Dias_Para_Amadurecer</th>
-        <th>Dias_Até_Colher_Novamente</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for fruta in frutas %}
-    <tr>
-        <td>
-            <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
-                 alt=""
-                 style="width: 50%">
-        </td>
-        <td>{{ fruta.nome_fruto }}</td>
-        <td>{{ fruta.inverno }}</td>
-        <td>{{ fruta.outono }}</td>
-        <td>{{ fruta.primavera }}</td>
-        <td>{{ fruta.verão }}</td>
-        <td>{{ fruta.preço_compra }}</td>
-        <td>{{ fruta.local_compra }}</td>
-        <td>{{ fruta.preço_venda_comum }}</td>
-        <td>{{ fruta.preço_venda_incomum }}</td>
-        <td>{{ fruta.dias_para_amadurecer }}</td>
-        <td>{{ fruta.dias_até_colher_novamente }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <a href="{{ url_for('form') }}" class="btn btn-primary btn-salvar">Otimizar agora</a>
+    <br><br>
+    <table class="table table-striped table-responsive table-bordered">
+        <thead class="thead-default">
+        <tr>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Inverno</th>
+            <th>Outono</th>
+            <th>Primavera</th>
+            <th>Verão</th>
+            <th>Preço_Compra</th>
+            <th>Local_Compra</th>
+            <th>Preço_Venda_Comum</th>
+            <th>Preço_Venda_Incomum</th>
+            <th>Dias_Para_Amadurecer</th>
+            <th>Dias_Até_Colher_Novamente</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fruta in frutas %}
+            <tr>
+                <td>
+                    <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
+                         alt=""
+                         style="width: 50%">
+                </td>
+                <td>{{ fruta.nome_fruto }}</td>
+                <td>
+                    {% if fruta.inverno %}
+                        Sim
+                    {% else %}
+                        Não
+                    {% endif %}
+                </td>
+                <td>
+                    {% if fruta.outono %}
+                        Sim
+                    {% else %}
+                        Não
+                    {% endif %}
+                </td>
+                <td>
+                    {% if fruta.primavera %}
+                        Sim
+                    {% else %}
+                        Não
+                    {% endif %}
+                </td>
+                <td>
+                    {% if fruta.verão %}
+                        Sim
+                    {% else %}
+                        Não
+                    {% endif %}
+                </td>
+                <td>{{ fruta.preço_compra }}</td>
+                <td>{{ fruta.local_compra }}</td>
+                <td>{{ fruta.preço_venda_comum }}</td>
+                <td>{{ fruta.preço_venda_incomum }}</td>
+                <td>{{ fruta.dias_para_amadurecer }}</td>
+                <td>
+                    {% if fruta.dias_até_colher_novamente %}
+                        {{ fruta.dias_até_colher_novamente }} dias
+                    {% else %}
+                        Não disponível
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
