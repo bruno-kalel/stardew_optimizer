@@ -2,46 +2,46 @@
 
 ## Descrição do Projeto
 
-O Stardew Optimizer é uma aplicação web que visa otimizar a escolha de sementes em Stardew Valley, levando em consideração variáveis como dias restantes na estação, quantidade de ouro disponível, espaço para plantio e a própria estação.
+O **Stardew Optimizer** é uma aplicação web projetada para otimizar a seleção de sementes em Stardew Valley. Ela leva em consideração variáveis como dias restantes na estação, quantidade de ouro disponível, espaço para plantio e a estação atual.
 
 ## Tecnologias Utilizadas
 
 ### Web Scrapping
-- Pandas
-- Selenium
-- Beautiful Soup
-- Regex
+- **Pandas**
+- **Selenium**
+- **Beautiful Soup**
+- **Regex**
 
 ### Desenvolvimento da Aplicação Web
-- Flask
-- PostgreSQL (Banco de Dados)
-- Simple.css (Framework CSS, versão customizada)
-- Psycopg2
-- Flask SQL Alchemy
-- OR-Tools (para cálculos de otimização)
-- Datetime
+- **Flask**
+- **PostgreSQL** (Banco de Dados)
+- **Simple.css** (Framework CSS, versão customizada)
+- **Psycopg2**
+- **Flask SQL Alchemy**
+- **OR-Tools** (para cálculos de otimização)
+- **Datetime**
 
 ### Justificativas para módulos de bibliotecas
 
 #### Flask
-- **Flask:** Iniciar e gerenciar a aplicação web.
-- **render_template:** Retornar as páginas HTML desejadas após cada rota configurada e receber argumentos quando necessário.
-- **send_from_directory:** Criar uma rota que carrega imagens dinamicamente e exibe-as nas tabelas.
-- **request:** Recuperar informações preenchidas pelos usuários no formulário e as guarda em variáveis para processamento posterior.
-- **flash:** Mostrar avisos para o usuário final no front end.
-- **redirect:** Redirecionar o usuário após passar por uma rota específica de processamento.
-- **url_for:** Lidar com rotas e endpoints de forma dinâmica.
+- **Flask:** Inicia e gerencia a aplicação web.
+- **render_template:** Retorna as páginas HTML desejadas após cada rota configurada e recebe argumentos quando necessário.
+- **send_from_directory:** Cria uma rota que carrega imagens dinamicamente e as exibe nas tabelas.
+- **request:** Recupera informações preenchidas pelos usuários no formulário e as guarda em variáveis para processamento posterior.
+- **flash:** Mostra avisos para o usuário final no front end.
+- **redirect:** Redireciona o usuário após passar por uma rota específica de processamento.
+- **url_for:** Lida com rotas e endpoints de forma dinâmica.
 
 #### Flask SQL Alchemy
-- **SQLAlchemy:** Conectar com o banco de dados PostgreSQL através do Python.
-- **desc:** Ordenar consultas de forma decrescente.
+- **SQLAlchemy:** Conecta-se ao banco de dados PostgreSQL através do Python.
+- **desc:** Ordena consultas de forma decrescente.
 
 #### Bibliotecas Adicionais
-- **psycopg2:** Utilizar o SQLAlchemy em bancos de dados do tipo PostgreSQL.
-- **ortools.linear_solver.pywraplp:** Realizar cálculos de otimização.
+- **psycopg2:** Utiliza o SQLAlchemy em bancos de dados do tipo PostgreSQL.
+- **ortools.linear_solver.pywraplp:** Realiza cálculos de otimização.
 
 #### Bibliotecas Padrão do Python
-- **datetime:** Capturar a data e hora atual para salvar na tabela de consultas no banco de dados.
+- **datetime:** Captura a data e hora atual para salvar na tabela de consultas no banco de dados.
 
 ## Instruções de Instalação
 
@@ -53,24 +53,27 @@ O Stardew Optimizer é uma aplicação web que visa otimizar a escolha de sement
 
 ## Instruções de Uso
 
-#### Obs: imagens meramente ilustrativas com valores específicos ocultados
+**Observação:** Imagens meramente ilustrativas com valores específicos ocultados.
 
 1. Na página inicial, visualize informações sobre as lavouras.
 
 
    ![Página Inicial](index.png)
 
+
 2. Preencha o formulário para obter resultados otimizados para o seu cenário.
 
 
    ![Formulário](form.png)
 
-3. Visualize os resultados otimizados para o seu cenário, linhas em verde mostram a(s) semente(s) que você precisa comprar.
+
+3. Visualize os resultados otimizados para o seu cenário; linhas em verde mostram a(s) semente(s) que você precisa comprar.
 
 
    ![Resultados Otimizados](otimizar.png)
 
-4. Consultas são armazenadas e podem ser revisitadas ou apagadas.
+
+4. As consultas são armazenadas e podem ser revisitadas ou apagadas.
 
 
    ![Consultas](consultas.png)
@@ -80,7 +83,7 @@ O Stardew Optimizer é uma aplicação web que visa otimizar a escolha de sement
 - `/static`: imagens, fontes e CSS customizado.
 - `/templates`: templates HTML.
 - `dados.ipynb`: documenta o processo de web scrapping.
-- `config.py`: configurações de conexão ao banco de dados.
+- `config.py`: contém o processo detalhado de web scrapping utilizado.
 - `script_novo.sql`: script de criação do banco de dados.
 - `stardew_optimizer.py`: script principal, modelos de conexão com o banco de dados e rotas.
 
