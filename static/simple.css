@@ -58,6 +58,10 @@ table {
     margin: 1.5rem 0 !important;
 }
 
+td {
+    white-space: nowrap;
+}
+
 td, th {
     border: 1px solid #898EA4 !important;
     text-align: center !important;
@@ -180,10 +184,6 @@ DAQUI PRA BAIXO É CÓDIGO PADRÃO DO FRAMEWORK
 NÃO FAÇO IDEIA DO QUE ESTÁ ACONTECENDO AÍ
 E TENHO MEDO DE APAGAR
 - BRUNO SAT 25 NOV */
-
-
-
-
 
 
 

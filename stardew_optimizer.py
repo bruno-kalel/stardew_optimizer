@@ -66,6 +66,7 @@ def otimizar():
   solver = pywraplp.Solver.CreateSolver('SCIP')
   infinity = solver.infinity()
   variáveis_iniciais = dict()
+  rotações_por_semente = dict()
   
   for fruto in lista_de_frutos_da_estação:
     variáveis_iniciais[fruto.nome_fruto] = solver.IntVar(0,
@@ -73,11 +74,20 @@ def otimizar():
                                                          fruto.nome_fruto)
     solver.Add(fruto.dias_para_amadurecer <= quantidade_dias)
   
-  quantidade_ouro_gasto = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
-                                       for fruto
-                                       in lista_de_frutos_da_estação]))
+  # quantidade_ouro_gasto = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
+  #                                      for fruto
+  #                                      in lista_de_frutos_da_estação]))
   
-  solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
+  # solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
+  #
+  # solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto]
+  #                       for fruto
+  #                       in lista_de_frutos_da_estação) <= quantidade_solo)
+  
+  for fruto in lista_de_frutos_da_estação:
+    # // (duas barras) = floor division, puxa pra baixo
+    rotações_por_semente[fruto.nome_fruto] = quantidade_dias // fruto.dias_para_amadurecer
+    solver.Add(variáveis_iniciais[fruto.nome_fruto] / quantidade_solo <= rotações_por_semente[fruto.nome_fruto])
   
   solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto] * fruto.dias_para_amadurecer
                         for fruto
