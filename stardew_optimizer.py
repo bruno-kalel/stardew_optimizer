@@ -79,9 +79,9 @@ def otimizar():
   
   solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
   
-  solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto]
+  solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto] * fruto.dias_para_amadurecer
                         for fruto
-                        in lista_de_frutos_da_estação) <= quantidade_solo)
+                        in lista_de_frutos_da_estação) <= quantidade_dias * quantidade_solo)
   
   valor_venda_semente = solver.Sum([fruto.preço_venda_comum * variáveis_iniciais[fruto.nome_fruto]
                                     for fruto

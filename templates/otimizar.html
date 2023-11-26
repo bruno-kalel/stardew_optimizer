@@ -32,6 +32,20 @@
         {% for fruta in frutas %}
             {% if variáveis_finais[fruta.nome_fruto] != 0 %}
                 <tr>
+                    <td style="background-color: #00663F">
+                        <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
+                             alt=""
+                             style="width: 50%">
+                    </td>
+                    <td style="background-color: #00663F">{{ fruta.nome_fruto }}</td>
+                    <td style="background-color: #00663F">{{ fruta.preço_compra }}</td>
+                    <td style="background-color: #00663F">{{ fruta.local_compra }}</td>
+                    <td style="background-color: #00663F">{{ fruta.preço_venda_comum }}</td>
+                    <td style="background-color: #00663F">{{ fruta.dias_para_amadurecer }}</td>
+                    <td style="background-color: #00663F">{{ variáveis_finais[fruta.nome_fruto] }}</td>
+                </tr>
+            {% else %}
+                <tr>
                     <td>
                         <img src="{{ url_for('static', filename='images/' + fruta.nome_fruto + '.png') }}"
                              alt=""
