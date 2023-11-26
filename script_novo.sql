@@ -1,30 +1,28 @@
-drop table Stardew;
-drop table Consultas;
-
 CREATE TABLE Stardew (
     id SERIAL PRIMARY KEY,
-	Nome_Fruto varchar(255),
-	Inverno boolean,
-	Outono boolean,
-	Primavera boolean,
-	Verão boolean,
-	Preço_Compra integer,
-	Local_Compra varchar(255),
-	Preço_Venda_Comum integer,
-	Preço_Venda_Incomum integer,
-	Dias_Para_Amadurecer integer,
-	Dias_Até_Colher_Novamente integer
+    Nome_Fruto VARCHAR(255),
+    Inverno BOOLEAN,
+    Outono BOOLEAN,
+    Primavera BOOLEAN,
+    Verão BOOLEAN,
+    Preço_Compra INTEGER CHECK (Preço_Compra >= 0),
+    Local_Compra VARCHAR(255),
+    Preço_Venda_Comum INTEGER CHECK (Preço_Venda_Comum >= 0),
+    Preço_Venda_Incomum INTEGER CHECK (Preço_Venda_Incomum >= 0),
+    Dias_Para_Amadurecer INTEGER CHECK (Dias_Para_Amadurecer >= 0),
+    Dias_Até_Colher_Novamente INTEGER CHECK (Dias_Até_Colher_Novamente >= 0)
 );
 
 CREATE TABLE Consultas (
     id SERIAL PRIMARY KEY,
-    quantidade_dias INTEGER,
-    quantidade_ouro INTEGER,
-    quantidade_solo INTEGER,
+    quantidade_dias INTEGER CHECK (quantidade_dias >= 0),
+    quantidade_ouro INTEGER CHECK (quantidade_ouro >= 0),
+    quantidade_solo INTEGER CHECK (quantidade_solo >= 0),
     estação VARCHAR(10),
-    lucro_máximo NUMERIC,
-	data_hora TIMESTAMP
+    lucro_máximo NUMERIC CHECK (lucro_máximo >= 0),
+    data_hora TIMESTAMP
 );
+
 
 INSERT INTO Stardew (Nome_Fruto, Inverno, Outono, Primavera, Verão, Preço_Compra, Local_Compra, Preço_Venda_Comum, Preço_Venda_Incomum, Dias_Para_Amadurecer, Dias_Até_Colher_Novamente) VALUES
 ('Alho',FALSE,FALSE,TRUE,FALSE,40,'Armazém',60,75,4,NULL),
