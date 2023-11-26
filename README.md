@@ -79,6 +79,7 @@ O Stardew Optimizer é uma aplicação web que visa otimizar a escolha de sement
 
 - `/static`: imagens, fontes e CSS customizado.
 - `/templates`: templates HTML.
+- `dados.ipynb`: documenta o processo de web scrapping.
 - `config.py`: configurações de conexão ao banco de dados.
 - `script_novo.sql`: script de criação do banco de dados.
 - `stardew_optimizer.py`: script principal, modelos de conexão com o banco de dados e rotas.
