@@ -56,7 +56,6 @@ def form():
 
 @app.route('/otimizar', methods=['POST', ])
 def otimizar():
-  flash('Otimizado com sucesso!')
   quantidade_dias = int(request.form['quantidade_dias'])
   quantidade_ouro = int(request.form['quantidade_ouro'])
   quantidade_solo = int(request.form['quantidade_solo'])
@@ -74,15 +73,12 @@ def otimizar():
                                                          fruto.nome_fruto)
     solver.Add(fruto.dias_para_amadurecer <= quantidade_dias)
   
-  # quantidade_ouro_gasto = solver.Sum(([fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
-  #                                      for fruto
-  #                                      in lista_de_frutos_da_estação]))
-  
-  # solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
-  #
-  # solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto]
-  #                       for fruto
-  #                       in lista_de_frutos_da_estação) <= quantidade_solo)
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # FAZENDO IR PRO ELSE LÁ EM BAIXO
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!
+  solver.Add((solver.Sum(variáveis_iniciais[fruto.nome_fruto] * fruto.dias_para_amadurecer
+                         for fruto
+                         in lista_de_frutos_da_estação)) <= quantidade_dias * quantidade_solo)
   
   for fruto in lista_de_frutos_da_estação:
     # // (duas barras) = floor division, puxa pra baixo
@@ -106,6 +102,7 @@ def otimizar():
   status = solver.Solve()
   
   if status == pywraplp.Solver.OPTIMAL or status == pywraplp.Solver.FEASIBLE:
+    flash('Otimização deu certo!')
     lucro_máximo = solver.Objective().Value()
     variáveis_finais = dict()
     
@@ -139,6 +136,9 @@ def otimizar():
                            estação=estação,
                            frutas=lista_de_frutos_da_estação,
                            variáveis_finais=variáveis_finais)
+  else:
+    flash('Otimização falhou!')
+    return redirect(url_for('index'))
 
 
 @app.route('/consultas')
