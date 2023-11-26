@@ -20,6 +20,7 @@ CREATE TABLE Consultas (
     id SERIAL PRIMARY KEY,
     quantidade_dias INTEGER,
     quantidade_ouro INTEGER,
+    quantidade_solo INTEGER,
     estação VARCHAR(10),
     lucro_máximo NUMERIC,
 	data_hora TIMESTAMP

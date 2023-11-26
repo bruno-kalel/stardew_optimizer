@@ -45,8 +45,8 @@ body {
 }
 
 .alert {
-    color: #000 !important;
-    background-color: #ffb300 !important;
+    color: #dcdcdc !important;
+    background-color: #2b2b2b !important;
     padding: 0.75rem 1.25rem !important;
     margin-bottom: 1rem !important;
     border: 1px solid transparent !important;
@@ -173,6 +173,21 @@ progress {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+
+
+
+
+
+
+
+
+/* DAQUI PRA BAIXO É CÓDIGO PADRÃO DO FRAMEWORK
+NÃO FAÇO IDEIA DO QUE ESTÁ ACONTECENDO AÍ E TENHO MEDO DE APAGAR
+- BRUNO SAT 25 NOV */
+
+
+
 
 
 

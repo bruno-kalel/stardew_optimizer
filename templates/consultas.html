@@ -10,6 +10,7 @@
         <tr>
             <th>Quantidade<br>de dias</th>
             <th>Quantidade<br>de ouro</th>
+            <th>Quantidade<br>de solo</th>
             <th>Estação</th>
             <th>Lucro máximo</th>
             <th>Data e hora</th>
@@ -20,7 +21,8 @@
             <tr>
                 <td>{{ consulta.quantidade_dias }}</td>
                 <td>{{ consulta.quantidade_ouro }}</td>
-                <td>{{ consulta.estação }}</td>
+                <td>{{ consulta.quantidade_solo }}</td>
+                <td>{{ consulta.estação.title() }}</td>
                 <td>{{ consulta.lucro_máximo }}</td>
                 <td>{{ consulta.data_hora }}</td>
                 <td>

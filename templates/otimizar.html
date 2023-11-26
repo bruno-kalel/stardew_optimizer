@@ -5,12 +5,14 @@
             <td>Lucro máximo</td>
             <td>Quantidade de dias</td>
             <td>Quantidade de ouro</td>
+            <td>Quantidade de solo</td>
             <td>Estação</td>
         </tr>
         <tr>
             <td>{{ lucro_máximo | round | int }}</td>
             <td>{{ quantidade_dias }}</td>
             <td>{{ quantidade_ouro }}</td>
+            <td>{{ quantidade_solo }}</td>
             <td>{{ estação.title() }}</td>
         </tr>
     </table>

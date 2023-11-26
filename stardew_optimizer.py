@@ -1,7 +1,3 @@
-# pip install Flask Flask-SQLAlchemy psycopg2 ortools
-# psycopg2 não é declarado explicitamente, mas precisa ser instalado
-# lembrar de fazer os flashes pro usuário
-
 from flask import Flask, render_template, send_from_directory, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
@@ -33,6 +29,7 @@ class Consultas(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   quantidade_dias = db.Column(db.Integer)
   quantidade_ouro = db.Column(db.Integer)
+  quantidade_solo = db.Column(db.Integer)
   estação = db.Column(db.String(10))
   lucro_máximo = db.Column(db.Numeric)
   data_hora = db.Column(db.DateTime)
@@ -62,6 +59,7 @@ def otimizar():
   flash('Otimizado com sucesso!')
   quantidade_dias = int(request.form['quantidade_dias'])
   quantidade_ouro = int(request.form['quantidade_ouro'])
+  quantidade_solo = int(request.form['quantidade_solo'])
   estação = request.form['estação']
   lista_de_frutos_da_estação = Stardew.query.filter(getattr(Stardew, estação)).all()
   
@@ -80,6 +78,10 @@ def otimizar():
                                        in lista_de_frutos_da_estação]))
   
   solver.Add(quantidade_ouro_gasto <= quantidade_ouro)
+  
+  solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto]
+                        for fruto
+                        in lista_de_frutos_da_estação) <= quantidade_solo)
   
   valor_venda_semente = solver.Sum([fruto.preço_venda_comum * variáveis_iniciais[fruto.nome_fruto]
                                     for fruto
@@ -103,6 +105,7 @@ def otimizar():
     # consulta já foi realizada anteriormente? não criar novamente no banco
     if Consultas.query.filter_by(quantidade_dias=quantidade_dias,
                                  quantidade_ouro=quantidade_ouro,
+                                 quantidade_solo=quantidade_solo,
                                  estação=estação).first():
       flash('Otimização realizada anteriormente. Não será cadastrada no banco de dados.')
     
@@ -110,7 +113,8 @@ def otimizar():
     else:
       db.session.add(Consultas(quantidade_dias=quantidade_dias,
                                quantidade_ouro=quantidade_ouro,
-                               estação=estação.title(),
+                               quantidade_solo=quantidade_solo,
+                               estação=estação,
                                lucro_máximo=int(round(lucro_máximo)),
                                data_hora=datetime.now()))
       db.session.commit()
@@ -121,6 +125,7 @@ def otimizar():
                            lucro_máximo=lucro_máximo,
                            quantidade_dias=quantidade_dias,
                            quantidade_ouro=quantidade_ouro,
+                           quantidade_solo=quantidade_solo,
                            estação=estação,
                            frutas=lista_de_frutos_da_estação,
                            variáveis_finais=variáveis_finais)
