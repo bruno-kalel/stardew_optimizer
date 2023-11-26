@@ -65,30 +65,21 @@ def otimizar():
   solver = pywraplp.Solver.CreateSolver('SCIP')
   infinity = solver.infinity()
   variáveis_iniciais = dict()
-  rotações_por_semente = dict()
   
   for fruto in lista_de_frutos_da_estação:
     variáveis_iniciais[fruto.nome_fruto] = solver.IntVar(0,
                                                          infinity,
                                                          fruto.nome_fruto)
-    solver.Add(fruto.dias_para_amadurecer <= quantidade_dias)
-  
-  # !!!!!!!!!!!!!!!!!!!!!!!!!!!
-  # FAZENDO IR PRO ELSE LÁ EM BAIXO
-  # !!!!!!!!!!!!!!!!!!!!!!!!!!!
-  solver.Add((solver.Sum(variáveis_iniciais[fruto.nome_fruto] * fruto.dias_para_amadurecer
-                         for fruto
-                         in lista_de_frutos_da_estação)) <= quantidade_dias * quantidade_solo)
-  
-  for fruto in lista_de_frutos_da_estação:
-    # // (duas barras) = floor division, puxa pra baixo
-    rotações_por_semente[fruto.nome_fruto] = quantidade_dias // fruto.dias_para_amadurecer
-    solver.Add(variáveis_iniciais[fruto.nome_fruto] / quantidade_solo <= rotações_por_semente[fruto.nome_fruto])
-  
-  solver.Add(solver.Sum(variáveis_iniciais[fruto.nome_fruto] * fruto.dias_para_amadurecer
+    
+    # restrição de tempo
+    solver.Add(fruto.dias_para_amadurecer * variáveis_iniciais[fruto.nome_fruto] <= quantidade_dias)
+    
+  # restrição de orçamento
+  solver.Add(solver.Sum(fruto.preço_compra * variáveis_iniciais[fruto.nome_fruto]
                         for fruto
-                        in lista_de_frutos_da_estação) <= quantidade_dias * quantidade_solo)
+                        in lista_de_frutos_da_estação) <= quantidade_ouro)
   
+  # variáveis da função objetiva
   valor_venda_semente = solver.Sum([fruto.preço_venda_comum * variáveis_iniciais[fruto.nome_fruto]
                                     for fruto
                                     in lista_de_frutos_da_estação])
@@ -97,8 +88,11 @@ def otimizar():
                                      for fruto
                                      in lista_de_frutos_da_estação])
   
+  # função objetiva
   objective_terms = [valor_venda_semente - valor_compra_semente]
   solver.Maximize(solver.Sum(objective_terms))
+  
+  # resolução do problema de otimização
   status = solver.Solve()
   
   if status == pywraplp.Solver.OPTIMAL or status == pywraplp.Solver.FEASIBLE:
