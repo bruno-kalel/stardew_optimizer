@@ -28,7 +28,7 @@ The **Stardew Optimizer** is a web application designed to optimize seed selecti
 - **Pandas**
 - **Selenium**
 - **Beautiful Soup**
-- **Unicode**
+- **Unidecode**
 - **Regex**
 
 #### Web Application Development
@@ -137,7 +137,7 @@ O **Stardew Optimizer** é uma aplicação web projetada para otimizar a seleç�
 - **Pandas**
 - **Selenium**
 - **Beautiful Soup**
-- **Unicode**
+- **Unidecode**
 - **Regex**
 
 #### Desenvolvimento da Aplicação Web
