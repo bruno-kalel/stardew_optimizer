@@ -37,7 +37,7 @@ class Consultas(db.Model):
 
 @app.route('/')
 def index():
-  frutas = Stardew.query.order_by(Stardew.nome_frutos)
+  frutas = Stardew.query.order_by(Stardew.nome_fruto)
   return render_template('index.html',
                          title='Todas as lavouras',
                          frutas=frutas)
