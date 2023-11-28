@@ -42,7 +42,7 @@ The **Stardew Optimizer** is a web application designed to optimize seed selecti
 
 #### Justification for Library Modules
 
-##### Flask
+##### From Flask
 - **Flask:** Manages the web application.
 - **render_template:** Returns desired HTML pages after each configured route and receives arguments when necessary.
 - **send_from_directory:** Creates a route that dynamically loads and displays images in tables.
@@ -51,17 +51,17 @@ The **Stardew Optimizer** is a web application designed to optimize seed selecti
 - **redirect:** Redirects the user after passing through a specific processing route.
 - **url_for:** Handles routes and endpoints dynamically.
 
-##### Flask SQL Alchemy
+##### From Flask SQL Alchemy
 - **SQLAlchemy:** Connects to the PostgreSQL database through Python.
 - **desc:** Orders queries in descending order.
 
-##### Psycopg2
+##### From Psycopg2
 - **psycopg2:** Uses SQLAlchemy with PostgreSQL databases.
 
-##### OR-Tools
+##### From OR-Tools
 - **linear_solver.pywraplp:** Performs optimization calculations.
 
-##### Python Standard Libraries
+##### From Python Standard Libraries
 - **datetime:** Captures the current date and time to save in the queries table in the database.
 
 ### Installation Instructions
@@ -151,7 +151,7 @@ O **Stardew Optimizer** é uma aplicação web projetada para otimizar a seleç�
 
 #### Justificativas para Módulos de Bibliotecas
 
-##### Flask
+##### Do Flask
 - **Flask:** Inicia e gerencia a aplicação web.
 - **render_template:** Retorna as páginas HTML desejadas após cada rota configurada e recebe argumentos quando necessário.
 - **send_from_directory:** Cria uma rota que carrega imagens dinamicamente e as exibe nas tabelas.
@@ -160,17 +160,17 @@ O **Stardew Optimizer** é uma aplicação web projetada para otimizar a seleç�
 - **redirect:** Redireciona o usuário após passar por uma rota específica de processamento.
 - **url_for:** Lida com rotas e endpoints de forma dinâmica.
 
-##### Flask SQL Alchemy
+##### Do Flask SQL Alchemy
 - **SQLAlchemy:** Conecta-se ao banco de dados PostgreSQL através do Python.
 - **desc:** Ordena consultas de forma decrescente.
 
-##### Psycopg2
+##### Do Psycopg2
 - **psycopg2:** Utiliza o SQLAlchemy em bancos de dados do tipo PostgreSQL.
 
-##### OR-Tools
+##### Das OR-Tools
 - **linear_solver.pywraplp:** Realiza cálculos de otimização.
 
-##### Bibliotecas Padrão do Python
+##### Das Bibliotecas Padrão do Python
 - **datetime:** Captura a data e hora atual para salvar na tabela de consultas no banco de dados.
 
 ### Instruções de Instalação
