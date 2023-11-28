@@ -76,8 +76,6 @@ The **Stardew Optimizer** is a web application designed to optimize seed selecti
 
 ### Usage Instructions
 
-**Note:** Images are for illustrative purposes only, with specific values hidden.
-
 1. On the home page, view information about the crops.
 
 
@@ -186,8 +184,6 @@ O **Stardew Optimizer** é uma aplicação web projetada para otimizar a seleç�
 5. Acesse a aplicação em [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ### Instruções de Uso
-
-**Observação:** Imagens meramente ilustrativas com valores específicos ocultados.
 
 1. Na página inicial, visualize informações sobre as lavouras.
 
