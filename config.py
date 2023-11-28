@@ -1,10 +1,10 @@
-SECRET_KEY = ''
+SECRET_KEY = 'secret_key'
 
-CONFIG_DBMS = ''
+CONFIG_DBMS = 'postgresql'
 CONFIG_USER = ''
 CONFIG_PASSWORD = ''
 CONFIG_SERVER = ''
-CONFIG_DATABASE = ''
+CONFIG_DATABASE = 'stardew'
 
 # \ para quebrar linha
 SQLALCHEMY_DATABASE_URI = \
